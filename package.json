@@ -1,0 +1,14 @@
+{
+    "name": "testKata",
+    "version": "0.1.0",
+    "dependencies": {
+        "grunt": "0.4.5",
+        "grunt-angular-templates": "*",
+        "grunt-browser-output": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-connect": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-watch": "*",
+        "load-grunt-tasks": "*"
+    }
+}
