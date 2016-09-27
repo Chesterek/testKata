@@ -19,14 +19,17 @@
                     <tr ng-repeat="user in users track by $index">
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
-                        <td class="text-center"><i class="fa fa-cogs"></i></td>
+                        <td class="text-center"><i class="fa fa-cogs" ng-click="openCreateNewUserModal('edit', user)"></i></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div>
-            <button class="btn btn-primary" ng-click="createNewUser()">Create new</button>
+            <button class="btn btn-primary" ng-click="openCreateNewUserModal('create')" ng-disabled="isCrudLoading">
+                <i class="fa fa-spinner fa-spin" ng-show="isCrudLoading"></i>
+                Create new
+            </button>
         </div>
     </div>
 </div>

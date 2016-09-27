@@ -15,4 +15,18 @@ angular.module('app').service('UsersService', ['$q', 'UsersModel', 'UsersResourc
         return deferred.promise;
     };
 
+    this.createNewUser = function (payload) {
+        var deferred = $q.defer();
+
+        UsersResource.createUser(null, payload,
+            function (data) {
+                deferred.resolve(data);
+            }, function (error) {
+                //server returns created object.
+                UsersModel.users.push(payload);
+                deferred.reject(error);
+            }
+        );
+        return deferred.promise;
+    };
 }]);
