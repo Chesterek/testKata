@@ -7,15 +7,36 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', 'Us
         UsersService.getUsers().then(
             function success (response) {
                 console.log(response);
-            }, function error (error) {
+            }, function error (fetchedData) {
                 //response comes back after browser's timeout.
-                console.log('check expected mocked data retrieval', error);
+                console.log('check expected mocked data retrieval', fetchedData);
+                $scope.users = fetchedData;
             }
         ).finally(
             function () {
                 $rootScope.isLoading = false;
             }
         );
+    };
+
+    $scope.openCreateNewUserModal = function () {
+
+    };
+
+    $scope.createNewUser = function () {
+
+    };
+
+    $scope.editUser = function () {
+
+    };
+
+    $scope.openRemoveUserModal = function() {
+
+    };
+
+    $scope.removeUser = function () {
+
     };
 
 }]);
