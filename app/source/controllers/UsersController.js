@@ -58,12 +58,33 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$m
         console.log('edit user', user);
     }
 
-    $scope.openRemoveUserModal = function() {
+    $scope.openRemoveUserModal = function(user) {
+        var modalScope = $scope.$new();
+        modalScope.user = user;
 
+        var modalInstance = $modal.open({
+            templateUrl: 'source/views/modals/removeUserModal.html',
+            scope: modalScope,
+            windowClass: ''
+        });
+        modalInstance.result.then(function () {
+            removeUser(user.id);
+        });
     };
 
-    $scope.removeUser = function () {
-
-    };
+    function removeUser (id) {
+        $scope.isCrudLoading = true;
+        UsersService.removeUser(id).then(
+            function success (response) {
+                console.log(response);
+            }, function error (error) {
+                $scope.users = UsersModel.users;
+            }
+        ).finally(
+            function () {
+                $scope.isCrudLoading = false;
+            }
+        );
+    }
 
 }]);

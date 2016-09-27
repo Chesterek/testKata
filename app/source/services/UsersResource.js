@@ -16,6 +16,9 @@ angular.module('app').service('UsersResource', [ '$resource', 'GlobalSettings', 
             },
             updateUser: {
                 method: 'PUT'
+            },
+            removeUser: {
+                method: 'DELETE'
             }
         });
 }]);
@@ -24,8 +27,9 @@ angular.module('app').service('UsersResource', [ '$resource', 'GlobalSettings', 
 /*
 * REST API DOCUMENTATION:
 *
-*  [GET]   url/v1/users          - get list of all users
-*  [POST]  url/v1/users          - create a new user
-*  [PUT]   url/v1/users/:id      - edit an already existing user
+*  [GET]    url/v1/users          - get list of all users
+*  [POST]   url/v1/users          - create a new user
+*  [PUT]    url/v1/users/:id      - edit an already existing user
+*  [DELETE] url/v1/users/:id      - remove an already existing user
 *
 * */
