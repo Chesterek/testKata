@@ -5,6 +5,3 @@ How to run app:
 2) cd app
 3) bower install
 4) grunt serve
-
-
-
