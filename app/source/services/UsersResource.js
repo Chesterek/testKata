@@ -14,7 +14,7 @@ angular.module('app').service('UsersResource', [ '$resource', 'GlobalSettings', 
             createUser: {
                 method: 'POST'
             },
-            updateUser: {
+            editUser: {
                 method: 'PUT'
             },
             removeUser: {

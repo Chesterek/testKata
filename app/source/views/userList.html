@@ -19,8 +19,8 @@
                     <tr ng-repeat="user in users track by $index">
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
-                        <td class="text-center">
-                            <span ng-if="!isCrudLoading" dropdown on-toggle="toggled(open)">
+                        <td class="text-center" ng-show="!flags.isCrudLoading">
+                            <span dropdown>
                                 <i class="fa fa-cogs" id="simple-dropdown" dropdown-toggle></i>
                                 <ul class="dropdown-menu" dropdown-menu aria-labelledby="simple-dropdown">
                                   <li>
@@ -31,20 +31,30 @@
                                     </li>
                                 </ul>
                             </span>
-                            <i class="fa fa-spinner fa-spin" ng-show="isCrudLoading"></i>
                         </td>
-
-
+                        <td class="text-center" ng-show="flags.isCrudLoading">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div>
-            <button class="btn btn-primary" ng-click="openCreateNewUserModal('create')" ng-disabled="isCrudLoading">
-                <i class="fa fa-spinner fa-spin" ng-show="isCrudLoading"></i>
+            <button class="btn btn-primary" ng-click="openCreateNewUserModal('create')" ng-disabled="flags.isCrudLoading">
+                <span ng-show="flags.isCrudLoading"><i class="fa fa-spinner fa-spin"></i></span>
                 Create new
             </button>
         </div>
     </div>
+    <!--    Code left out for debugging purposes.
+    <div>
+        <div class="clearfix" style="margin-top: 20px;"></div>
+        <div class="row">
+            <pre class="col-md-12">
+                {{users | json}}
+            </pre>
+        </div>
+    </div>
+    -->
 </div>

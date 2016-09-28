@@ -1,6 +1,10 @@
 angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$modal', 'UsersService', 'UsersModel', function($scope, $rootScope, $modal, UsersService, UsersModel) {
     'use strict';
 
+    $scope.flags = {
+        isCrudLoading: false
+    };
+
     $scope.init = function () {
         $rootScope.isLoading = true;
 
@@ -21,7 +25,7 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$m
     $scope.openCreateNewUserModal = function (mode, user) {
         var modalScope = $scope.$new();
         modalScope.mode = mode;
-        modalScope.user = user || {};
+        modalScope.user = angular.copy(user) || {};
 
         var modalInstance = $modal.open({
             templateUrl: 'source/views/modals/createUserModal.html',
@@ -34,13 +38,12 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$m
             } else if (mode === 'edit') {
                 editUser(user);
             }
-
         });
 
     };
 
     function createNewUser (user) {
-        $scope.isCrudLoading = true;
+        $scope.flags.isCrudLoading = true;
         UsersService.createNewUser(user).then(
             function success (response) {
                 console.log(response);
@@ -49,13 +52,24 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$m
             }
         ).finally(
             function () {
-                $scope.isCrudLoading = false;
+                $scope.flags.isCrudLoading = false;
             }
         );
     }
 
     function editUser (user) {
-        console.log('edit user', user);
+        $scope.flags.isCrudLoading = true;
+        UsersService.editUser(user).then(
+            function success (response) {
+                console.log(response);
+            }, function error (error) {
+                $scope.users = UsersModel.users;
+            }
+        ).finally(
+            function () {
+                $scope.flags.isCrudLoading = false;
+            }
+        );
     }
 
     $scope.openRemoveUserModal = function(user) {
@@ -73,7 +87,7 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$m
     };
 
     function removeUser (id) {
-        $scope.isCrudLoading = true;
+        $scope.flags.isCrudLoading = true;
         UsersService.removeUser(id).then(
             function success (response) {
                 console.log(response);
@@ -82,7 +96,7 @@ angular.module('app').controller('UsersController', ['$scope', '$rootScope', '$m
             }
         ).finally(
             function () {
-                $scope.isCrudLoading = false;
+                $scope.flags.isCrudLoading = false;
             }
         );
     }
